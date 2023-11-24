@@ -6,4 +6,5 @@ sqlalchemy
 urllib3
 mysqlclient
 SQLAlchemy
+bs4
 beautifulsoup4
