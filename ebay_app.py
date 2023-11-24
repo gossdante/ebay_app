@@ -242,7 +242,8 @@ def gpu_marks():
     return df
 
 st.title('Ebay Price Performance')
-
+st.write("This application will access ebay data for a list of cpu's, gpu's, and motherboards. Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
+st.write('To get newly updated data, press the "Rerun" button in the menu bar above.')
 #st.write('Click the buttons below to load recent price data')
 
 #d = 1
@@ -306,6 +307,7 @@ cpu2 = cpu.groupby(['search_term'])['price'].mean()
 
 
 st.write('---')
+
 st.write("CPU's")
 cpu_pp = pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
 cpu_pp['Ratio'] = cpu_pp['cpu_marks']/cpu_pp['price']
