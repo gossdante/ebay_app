@@ -22,12 +22,12 @@ CPUs= ['AMD Ryzen 5 3600', 'AMD Ryzen 5 5500', 'AMD Ryzen 5 5600', 'AMD Ryzen 5 
        'AMD Ryzen 5 5600X', 'AMD Ryzen 7 5800', 'AMD Ryzen 5 7600X', 'AMD Ryzen 5 7600',
        'AMD Ryzen 9 5900', 'AMD Ryzen 9 3950X','AMD Ryzen 9 7950X','AMD Ryzen 9 7900X',
        'AMD Ryzen 5 7600','AMD Ryzen 5 7600X','AMD Ryzen 7 7700','AMD Ryzen 7 7700X','Intel Core i5-13500',
-       'AMD Ryzen 9 7900',' Intel Core i9 13900K',' Intel Core i7 13700',' Intel Core i5 13600',
-       ' Intel Core i5 13400','Intel Core i7 9700K', 'Intel Core i7 9800X', 'Intel Core i7-14700KF',
-       ' Intel Core i9 12900K',' Intel Core i7 12700K','Intel Core i5 12600K',' Intel Core i5 12400',
-       ' Intel Core i5 12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
-       ' Intel Core i9 11900K',' Intel Core i7 11700K',' Intel Core i5 11600K',' Intel Core i5 11500',
-       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5 11400','Intel Core i5-14600K']
+       'AMD Ryzen 9 7900',' Intel Core i9-13900K',' Intel Core i7-13700',' Intel Core i5-13600',
+       ' Intel Core i5-13400','Intel Core i7-9700K', 'Intel Core i7-9800X', 'Intel Core i7-14700KF',
+       ' Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600K',' Intel Core i5-12400',
+       ' Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
+       ' Intel Core i9-11900K',' Intel Core i7-11700K',' Intel Core i5-11600K',' Intel Core i5-11500',
+       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K']
 Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard',
                'x570 motherboard','b650 motherboard','x670 motherboard','z790 motherboard',
                'B760 motherboard','z390 motherboard','h610 motherboard','b660 motherboard']
@@ -52,6 +52,13 @@ def cpu_scraper():
         url=str.join("", [cpu_urlp1, searchstr, cpu_urlp2])
         html=urllib.request.urlopen(url).read()
         soup=BeautifulSoup(html,'html.parser')
+        # Check for 'Results matching fewer words' and modify the soup
+        soup_str = str(soup)
+        cutoff_index = soup_str.find("Results matching fewer words")
+        if cutoff_index != -1:
+            truncated_html = soup_str[:cutoff_index]
+            soup = BeautifulSoup(truncated_html, 'html.parser')
+    
         main_data=soup.find_all('div',class_="s-item__info clearfix")
 
         # For each item get key data & add to a set of variables 
@@ -104,6 +111,13 @@ def gpu_scraper():
         url=str.join("", [gpu_urlp1,searchstr,gpu_urlp2])
         html=urllib.request.urlopen(url).read()
         soup=BeautifulSoup(html,'html.parser')
+        # Check for 'Results matching fewer words' and modify the soup
+        soup_str = str(soup)
+        cutoff_index = soup_str.find("Results matching fewer words")
+        if cutoff_index != -1:
+            truncated_html = soup_str[:cutoff_index]
+            soup = BeautifulSoup(truncated_html, 'html.parser')
+    
         main_data=soup.find_all('div',class_="s-item__info clearfix")
 
         # For each item get key data & add to a set of variables 
@@ -155,6 +169,13 @@ def mboard_scraper():
     url=str.join("", [mb_urlp1,searchstr,mb_urlp2])
     html=urllib.request.urlopen(url).read()
     soup=BeautifulSoup(html,'html.parser')
+    # Check for 'Results matching fewer words' and modify the soup
+    soup_str = str(soup)
+    cutoff_index = soup_str.find("Results matching fewer words")
+    if cutoff_index != -1:
+        truncated_html = soup_str[:cutoff_index]
+        soup = BeautifulSoup(truncated_html, 'html.parser')
+    
     main_data=soup.find_all('div',class_="s-item__info clearfix")
 
     # For each item get key data & add to a set of variables 
