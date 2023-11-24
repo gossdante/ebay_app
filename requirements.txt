@@ -6,3 +6,4 @@ sqlalchemy
 urllib3
 mysqlclient
 SQLAlchemy
+bs4
