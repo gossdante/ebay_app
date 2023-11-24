@@ -1,0 +1,8 @@
+streamlit
+numpy
+pandas
+pymysql
+sqlalchemy
+urllib3
+mysqlclient
+SQLAlchemy
