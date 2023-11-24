@@ -9,7 +9,7 @@ import urllib.request, urllib.parse
 GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'RX 6950 XT', 'RX 7900 XT', 'RTX 3080 Ti', 'RTX 3090', 'RTX 3080',
       'RX 6900', 'RX 6800', 'RTX 3070', 'RTX 3070 Ti', 'RTX 2080 Ti',
-      'RX 6800 XT', 'RX 6750 XT', 'RTX 3060 Ti', 'RX 6700 XT', 'RTX 2080 super',
+      'RX 6800 XT', 'RX 6750 XT', 'RTX 3060 Ti', 'RX 6700 XT', 'RTX 2080 Super',
       'RTX 2080', 'GTX 1080 Ti', 'RTX 2070 Super', 'RX 6650 XT', 'RTX 3060',
       'RX 5700 XT', 'RTX 2060 Super', 'RX 6600 XT', 'RTX 2070', 'RTX 2060',
       'GTX 1080', 'RX 6600', 'RX 5700', 'GTX 1070 Ti', 'RTX 2060', 'GTX 980 Ti',
@@ -234,6 +234,10 @@ def gpu_marks():
 
     df = df.drop(columns=['scale','price','blank'],axis='columns')
     df = df.dropna(how='all',axis= 'rows')
+    #df['gpu_marks'] = df['gpu_marks'].apply(str.replace(',',''))
+    #marks = [mark.replace(',','') for mark in marks]
+    df['gpu_marks'] = [marks.replace(',','') for marks in df['gpu_marks']]
+    
     df['gpu_marks'] = df['gpu_marks'].apply(pd.to_numeric)
     return df
 
@@ -277,7 +281,7 @@ cpu_mark = cpu_marks()
 #    st.write('Done')
     
 #if st.checkbox('Get GPU Benchmarks'):
-#gpu_mark = gpu_marks()
+gpu_mark = gpu_marks()
 #    st.dataframe(gpu_marks)
 #    st.write('Done')
     
@@ -312,12 +316,24 @@ cpu_pp = cpu_pp.rename(columns={'cpu_name' : 'CPU Name',
 st.dataframe(cpu_pp)
 
 st.write("GPU's")
+#
+#st.dataframe(gpu2)
+gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[-2] +' ' + gpu_mark['gpu_name'].str.split().str[-1]
+#st.dataframe(gpu_mark)
+gpu_pp = pd.merge(gpu_mark,gpu2,left_on=['join'],right_on=['search_term'])
+gpu_pp['Ratio'] = gpu_pp['gpu_marks']/gpu_pp['price']
+gpu_pp = gpu_pp.rename(columns={'gpu_name' : 'GPU Name',
+                                'gpu_marks' : 'GPU Benchmark Score',
+                                'price' : 'Average Price (USD)',
+                                'Ratio' : 'Price to Performance Ratio'})
+gpu_pp = gpu_pp.drop(columns=['join'])
+st.dataframe(gpu_pp)
 
 
 st.write("Motherboard's")
 mboard2 = pd.DataFrame(mboard2)
 mboard2 = mboard2.rename(columns={'search_term' : 'Motherboard Name',
-                                  'price' : 'Average Price'})
+                                  'price' : 'Average Price (USD)'})
 st.dataframe(mboard2)
 #if st.checkbox('CPU Price Performance'):
 #    d=pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
