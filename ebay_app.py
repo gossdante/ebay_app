@@ -341,7 +341,7 @@ st.dataframe(cpu_pp)
 st.write("GPU's")
 #
 #st.dataframe(gpu2)
-gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[-2] +' ' + gpu_mark['gpu_name'].str.split().str[-1]
+gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[1:].apply(' '.join)
 #st.dataframe(gpu_mark)
 gpu_pp = pd.merge(gpu_mark,gpu2,left_on=['join'],right_on=['search_term'])
 gpu_pp['Ratio'] = gpu_pp['gpu_marks']/gpu_pp['price']
