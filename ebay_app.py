@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import ssl
 import urllib.request, urllib.parse
 
-# GPU's, CPU's, and Motherboards I want to search
+# GPUs, CPUs, and Motherboards I want to search
 GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'RX 6950 XT', 'RX 7900 XT', 'RTX 3080 Ti', 'RTX 3090', 'RTX 3080',
       'RX 6900', 'RX 6800', 'RTX 3070', 'RTX 3070 Ti', 'RTX 2080 Ti',
@@ -263,7 +263,7 @@ def gpu_marks():
     return df
 
 st.title('Ebay Price Performance')
-st.write("This application will access ebay data for a list of cpu's, gpu's, and motherboards. Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
+st.write("This application will access ebay data for a list of CPUs, GPUs, and Motherboards. Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
 st.write('To get newly updated data, press the "Rerun" button in the menu bar above.')
 #st.write('Click the buttons below to load recent price data')
 
@@ -329,7 +329,7 @@ cpu2 = cpu.groupby(['search_term'])['price'].mean()
 
 st.write('---')
 
-st.write("CPU's")
+st.write("CPUs")
 cpu_pp = pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
 cpu_pp['Ratio'] = cpu_pp['cpu_marks']/cpu_pp['price']
 cpu_pp = cpu_pp.rename(columns={'cpu_name' : 'CPU Name',
@@ -338,7 +338,7 @@ cpu_pp = cpu_pp.rename(columns={'cpu_name' : 'CPU Name',
                        'Ratio' : 'Price to Performance Ratio'})
 st.dataframe(cpu_pp)
 
-st.write("GPU's")
+st.write("GPUs")
 #
 #st.dataframe(gpu2)
 gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[1:].apply(' '.join)
