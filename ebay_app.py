@@ -359,7 +359,7 @@ gpu_pp = gpu_pp.drop(columns=['join'])
 st.dataframe(gpu_pp)
 
 
-st.write("Motherboard's")
+st.write("Motherboards")
 mboard2 = pd.DataFrame(mboard2)
 #mboard2.index = range(12)
 mboard2['price'] = mboard2['price'].round(2)
