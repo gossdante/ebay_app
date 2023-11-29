@@ -286,7 +286,7 @@ gpu2 = gpu.groupby(['search_term'])['price'].mean()
 #    st.write('Motherboard Search')
 #bar3 = st.progress(0)
 mboard = mboard_scraper()
-mboard2 = mboard.groupby(['search_term'])['price'].mean()
+mboard2 = mboard.groupby(['search_term'],as_index=False)['price'].mean()
 #    
 #    st.write('Motherboard Done')
 
@@ -333,6 +333,8 @@ st.write('---')
 st.write("CPUs")
 cpu_pp = pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
 cpu_pp['Ratio'] = cpu_pp['cpu_marks']/cpu_pp['price']
+cpu_pp['price'] = cpu_pp['price'].round(2)
+cpu_pp['Ratio'] = cpu_pp['Ratio'].round(2)
 cpu_pp = cpu_pp.rename(columns={'cpu_name' : 'CPU Name',
                        'cpu_marks' : 'CPU Benchmark Score',
                        'price' : 'Average Price (USD)',
@@ -346,6 +348,9 @@ gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[1:].apply(' '.join)
 #st.dataframe(gpu_mark)
 gpu_pp = pd.merge(gpu_mark,gpu2,left_on=['join'],right_on=['search_term'])
 gpu_pp['Ratio'] = gpu_pp['gpu_marks']/gpu_pp['price']
+gpu_pp['Ratio'] = gpu_pp['Ratio'].round(2)
+gpu_pp['price'] = gpu_pp['price'].round(2)
+
 gpu_pp = gpu_pp.rename(columns={'gpu_name' : 'GPU Name',
                                 'gpu_marks' : 'GPU Benchmark Score',
                                 'price' : 'Average Price (USD)',
@@ -356,8 +361,11 @@ st.dataframe(gpu_pp)
 
 st.write("Motherboard's")
 mboard2 = pd.DataFrame(mboard2)
+#mboard2.index = range(12)
+mboard2['price'] = mboard2['price'].round(2)
 mboard2 = mboard2.rename(columns={'search_term' : 'Motherboard Name',
                                   'price' : 'Average Price (USD)'})
+mboard2['Motherboard Name'] = mboard2['Motherboard Name'].str.title()
 st.dataframe(mboard2)
 #if st.checkbox('CPU Price Performance'):
 #    d=pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
