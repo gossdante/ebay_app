@@ -373,7 +373,7 @@ st.dataframe(mboard2)
 #    d = d.sort_values(by='Ratio')
 #    st.dataframe(d)
 
-st.write('---')
-if st.button('Get Updated Data (This will take a few moments)'):
-    st.cache_data.clear()
-    st.rerun()
+#st.write('---')
+#if st.button('Get Updated Data (This will take a few moments)'):
+#    st.cache_data.clear()
+#    st.rerun()
