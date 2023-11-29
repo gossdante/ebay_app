@@ -263,8 +263,8 @@ def gpu_marks():
     return df
 
 st.title('Ebay Price Performance')
-st.write("This application will access ebay data for a list of CPUs, GPUs, and Motherboards. Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
-st.write('To get newly updated data, press the "Rerun" button in the menu bar above.')
+st.write("This application will access ebay data for a list of CPUs, GPUs, and Motherboards.")# Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
+# st.write('To get newly updated data, press the "Rerun" button in the menu bar above.')
 #st.write('Click the buttons below to load recent price data')
 
 #d = 1
