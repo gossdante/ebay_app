@@ -17,20 +17,21 @@ GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'GTX 1650 Super','GTX 1060','RX 6500 XT', 'GTX 760 Ti', 'GTX 750 Ti',
       'GTX 1050']
 CPUs= ['AMD Ryzen 5 3600', 'AMD Ryzen 5 5500', 'AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G',
-       'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G',
+       'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G', 'AMD Ryzen 7 3700X',
        'AMD Ryzen 7 2700X', 'AMD Ryzen 5 3600X', 'AMD Ryzen 7 4700', 'AMD Ryzen 7 5700','AMD Ryzen 7 5800X3D',
        'AMD Ryzen 5 5600X', 'AMD Ryzen 7 5800', 'AMD Ryzen 5 7600X', 'AMD Ryzen 5 7600','AMD Ryzen 7 5700X',
        'AMD Ryzen 9 5900', 'AMD Ryzen 9 3950X','AMD Ryzen 9 7950X','AMD Ryzen 9 7900X','AMD Ryzen 9 5900X',
-       'AMD Ryzen 5 7600','AMD Ryzen 5 7600X','AMD Ryzen 7 7700','AMD Ryzen 7 7700X','Intel Core i5-13500',
-       'AMD Ryzen 9 7900',' Intel Core i9-13900K',' Intel Core i7-13700',' Intel Core i5-13600',
-       ' Intel Core i5-13400','Intel Core i7-9700K', 'Intel Core i7-9800X', 'Intel Core i7-14700KF',
-       ' Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600K',' Intel Core i5-12400',
-       ' Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
-       ' Intel Core i9-11900K',' Intel Core i7-11700K',' Intel Core i5-11600K',' Intel Core i5-11500',
+       'AMD Ryzen 7 7700','AMD Ryzen 7 7700X','Intel Core i5-13500', 'Intel Core i5-6500','Intel Core i5-6600',
+       'AMD Ryzen 9 7900',' Intel Core i9-13900K',' Intel Core i7-13700',' Intel Core i5-13600','Intel Core i7-13700F',
+       'Intel Core i5-13400','Intel Core i7-9700K', 'Intel Core i7-9800X', 'Intel Core i7-14700KF',
+       'Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600K','Intel Core i5-12400',
+       'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700','Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K'
+       'Intel Core i9-11900K',' Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F','Intel Core i5-11600K','Intel Core i5-11500',
        'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K']
-Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard',
-               'x570 motherboard','b650 motherboard','x670 motherboard','z790 motherboard',
-               'B760 motherboard','z390 motherboard','h610 motherboard','b660 motherboard']
+Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard', 'a520 motherboard','h470 motherboard',
+               'h510 motherboard','h570 motherboard','z490 motherboard','z590 motherboard',
+               'x570 motherboard','b650 motherboard','x670 motherboard','z790 motherboard', 'x470 motherboard','h410 motherboard',
+               'B760 motherboard','z390 motherboard','h610 motherboard','b660 motherboard','x370 motherboard','b350 motherboard']
 
 @st.cache_data
 def cpu_scraper():
