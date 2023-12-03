@@ -432,6 +432,52 @@ st.dataframe(mboard2)
 #    d['Ratio'] = d['cpu_marks']/d['price']
 #    d = d.sort_values(by='Ratio')
 #    st.dataframe(d)
+st.write('---')
+st.write('Select any CPU or GPU from the tool below, a table will be created allowing you to fill in prices to get an updated Price to Performance Ratio.')
+# Now I want to make a fill in the blank calculator for price to performance
+# Combine cpu_marks & gpu_marks
+gpu_pp2 = gpu_pp.rename(columns={'GPU Name' : 'Part Name',
+                                'GPU Benchmark Score' : 'Benchmark Score'})
+cpu_pp2 = cpu_pp.rename(columns={'CPU Name' : 'Part Name',
+                       'CPU Benchmark Score' : 'Benchmark Score'})
+marks = [cpu_pp2, gpu_pp2]
+all_marks = pd.concat(marks)
+parts = all_marks['Part Name'].drop_duplicates()
+chosen_part = st.selectbox('Select a part of interest',parts)
+number = st.number_input("Insert a number", value=None, placeholder="Type a number...")
+temp_df = all_marks[all_marks['Part Name']==(chosen_part)]
+temp_df['User Price Input'] = number
+temp_df['New Price to Performance Ratio'] = temp_df['Benchmark Score']/temp_df['User Price Input']
+st.dataframe(temp_df)
+st.metric(label=chosen_part, 
+          value=str(temp_df['New Price to Performance Ratio']), 
+          delta=str(temp_df['New Price to Performance Ratio']-temp_df['Price to Performance Ratio'])
+)
+
+#cpu_mark2 = cpu_mark.rename(columns={'cpu_name':'Part',
+#                                    'cpu_marks':'Benchmark'})
+#gpu_mark2 = gpu_mark.rename(columns={'gpu_name':'Part',
+#                                    'gpu_marks':'Benchmark'})
+#gpu_mark2 = gpu_mark2.drop(columns=['join'])
+#marks2 = [cpu_mark2, gpu_mark2]
+#all_marks2 = pd.concat(marks2)
+#parts2 = all_marks2['Part'].drop_duplicates()
+#chosen_parts2 = st.selectbox('Select a part of interest', parts2)
+#number = st.number_input("Insert a number", value=None, placeholder="Type a number...")
+#temp_df = all_marks2[all_marks2['Part']==(chosen_parts2)]
+#temp_df['User Price Input'] = number
+#temp_df['Price to Performance Ratio'] = temp_df['Benchmark']/temp_df['User Price Input']
+#st.dataframe(temp_df)
+
+
+
+
+
+#st.data_editor(all_marks[all_marks['Part Name'].isin(chosen_parts)],
+#               hide_index=True)
+
+
+
 
 st.write('---')
 if st.button('Get Updated Data (This will take a few moments)'):
