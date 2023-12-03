@@ -449,10 +449,14 @@ temp_df = all_marks[all_marks['Part Name']==(chosen_part)]
 temp_df['User Price Input'] = number
 temp_df['New Price to Performance Ratio'] = temp_df['Benchmark Score']/temp_df['User Price Input']
 st.dataframe(temp_df)
-st.metric(label=chosen_part, 
-          value=str(temp_df['New Price to Performance Ratio']), 
-          delta=str(temp_df['New Price to Performance Ratio']-temp_df['Price to Performance Ratio'])
-)
+og_pp = temp_df['Price to Performance Ratio']
+new_pp = temp_df['New Price to Performance Ratio']
+diff_pp = og_pp - new_pp
+
+#st.metric(label=chosen_part, 
+#          value=str(new_pp), 
+#          delta=str(diff_pp)
+#)
 
 #cpu_mark2 = cpu_mark.rename(columns={'cpu_name':'Part',
 #                                    'cpu_marks':'Benchmark'})
