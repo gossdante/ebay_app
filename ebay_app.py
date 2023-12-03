@@ -88,7 +88,24 @@ def cpu_scraper():
     df = df[df["item_name"].str.contains("Combo") == False] 
     df = df[df["item_name"].str.contains("combo") == False]
     df = df[df["item_name"].str.contains("box") == False]  
-    df = df[df["item_name"].str.contains("Box") == False]
+    df = df[df["item_name"].str.contains("Box") == False] 
+    df = df[df["item_name"].str.contains("BOX") == False]
+    df = df[df["item_name"].str.contains("parts only") == False]  
+    df = df[df["item_name"].str.contains("Fan") == False] 
+    df = df[df["item_name"].str.contains("fan") == False] 
+    df = df[df["item_name"].str.contains("Bracket") == False] 
+    df = df[df["item_name"].str.contains("bracket") == False] 
+    df = df[df["item_name"].str.contains("Replacement") == False] 
+    df = df[df["item_name"].str.contains("empty") == False] 
+    df = df[df["item_name"].str.contains("EMPTY") == False] 
+    df = df[df["item_name"].str.contains("Empty") == False] 
+    df = df[df["item_name"].str.contains("Read") == False] 
+    df = df[df["item_name"].str.contains("READ") == False] 
+    df = df[df["item_name"].str.contains("read") == False] 
+    df = df[df["item_name"].str.contains("Damage") == False] 
+    df = df[df["item_name"].str.contains("DAMAGE") == False] 
+    df = df[df["item_name"].str.contains("Laptop") == False] 
+    df = df[df["item_name"].str.contains("LAPTOP") == False]
     df['price'] = df['price'].apply(pd.to_numeric)
     return df
     
@@ -147,7 +164,24 @@ def gpu_scraper():
     df = df[df["item_name"].str.contains("Combo") == False] 
     df = df[df["item_name"].str.contains("combo") == False]
     df = df[df["item_name"].str.contains("box") == False]  
-    df = df[df["item_name"].str.contains("Box") == False]
+    df = df[df["item_name"].str.contains("Box") == False] 
+    df = df[df["item_name"].str.contains("BOX") == False]
+    df = df[df["item_name"].str.contains("parts only") == False]  
+    df = df[df["item_name"].str.contains("Fan") == False] 
+    df = df[df["item_name"].str.contains("fan") == False] 
+    df = df[df["item_name"].str.contains("Bracket") == False] 
+    df = df[df["item_name"].str.contains("bracket") == False] 
+    df = df[df["item_name"].str.contains("Replacement") == False] 
+    df = df[df["item_name"].str.contains("empty") == False] 
+    df = df[df["item_name"].str.contains("EMPTY") == False] 
+    df = df[df["item_name"].str.contains("Empty") == False] 
+    df = df[df["item_name"].str.contains("Read") == False] 
+    df = df[df["item_name"].str.contains("READ") == False] 
+    df = df[df["item_name"].str.contains("read") == False] 
+    df = df[df["item_name"].str.contains("Damage") == False] 
+    df = df[df["item_name"].str.contains("DAMAGE") == False] 
+    df = df[df["item_name"].str.contains("Laptop") == False] 
+    df = df[df["item_name"].str.contains("LAPTOP") == False] 
     df['price'] = df['price'].apply(pd.to_numeric)
     return df
 
@@ -206,6 +240,23 @@ def mboard_scraper():
   df = df[df["item_name"].str.contains("combo") == False]
   df = df[df["item_name"].str.contains("box") == False]  
   df = df[df["item_name"].str.contains("Box") == False] 
+  df = df[df["item_name"].str.contains("BOX") == False]
+  df = df[df["item_name"].str.contains("parts only") == False]  
+  df = df[df["item_name"].str.contains("Fan") == False] 
+  df = df[df["item_name"].str.contains("fan") == False] 
+  df = df[df["item_name"].str.contains("Bracket") == False] 
+  df = df[df["item_name"].str.contains("bracket") == False] 
+  df = df[df["item_name"].str.contains("Replacement") == False] 
+  df = df[df["item_name"].str.contains("empty") == False] 
+  df = df[df["item_name"].str.contains("EMPTY") == False] 
+  df = df[df["item_name"].str.contains("Empty") == False] 
+  df = df[df["item_name"].str.contains("Read") == False] 
+  df = df[df["item_name"].str.contains("READ") == False] 
+  df = df[df["item_name"].str.contains("read") == False] 
+  df = df[df["item_name"].str.contains("Damage") == False] 
+  df = df[df["item_name"].str.contains("DAMAGE") == False] 
+  df = df[df["item_name"].str.contains("Laptop") == False] 
+  df = df[df["item_name"].str.contains("LAPTOP") == False] 
   df['price'] = df['price'].apply(pd.to_numeric)
   return df
 
@@ -274,6 +325,7 @@ st.write("If you find this app useful and would like new parts to be added send 
 #    st.write('CPU Search')
 #    bar1 = st.progress(0)
 cpu = cpu_scraper()
+cpu_desc = cpu.groupby(['search_term'])['price'].describe()
     
 #    st.write('CPU Done')
 #    st.write('---')
@@ -281,6 +333,11 @@ cpu = cpu_scraper()
 #    bar2 = st.progress(0)
 gpu = gpu_scraper()
 gpu2 = gpu.groupby(['search_term'])['price'].mean()
+gpu3 = gpu.groupby(['search_term'])['price'].median()
+gpu4 = gpu.groupby(['search_term'])['price'].min()
+gpu5 = gpu.groupby(['search_term'])['price'].max()
+gpu_desc = gpu.groupby(['search_term'])['price'].describe()
+
 #    
 #    st.write('GPU Done')
 #    st.write('---')
@@ -288,17 +345,18 @@ gpu2 = gpu.groupby(['search_term'])['price'].mean()
 #bar3 = st.progress(0)
 mboard = mboard_scraper()
 mboard2 = mboard.groupby(['search_term'],as_index=False)['price'].mean()
-#    
+mboard_desc = mboard.groupby(['search_term'],as_index=False)['price'].describe()
+    
 #    st.write('Motherboard Done')
 
-dis = st.selectbox('Display Raw Data', ['cpu','gpu','mboard'],index=None)
+dis = st.selectbox('Display Detailed Data', ['cpu','gpu','mboard'],index=None)
 
 if dis == 'cpu':
-    st.dataframe(cpu)
+    st.dataframe(cpu_desc)
 elif dis == 'gpu':
-    st.dataframe(gpu)
+    st.dataframe(gpu_desc)
 elif dis == 'mboard':
-    st.dataframe(mboard)
+    st.dataframe(mboard_desc)
 #if st.checkbox('Get CPU Benchmarks'):
 cpu_mark = cpu_marks()
 #    st.dataframe(cpu_marks)
@@ -314,6 +372,7 @@ gpu_mark = gpu_marks()
 #    cpu = cpu_scraper()
 #    cpu['price'] = cpu['price'].apply(pd.to_numeric)
 cpu2 = cpu.groupby(['search_term'])['price'].mean()
+
 #    st.dataframe(cpu2)
 
 #if st.checkbox('Get GPU Data'):
