@@ -471,7 +471,7 @@ if number:
     col1.metric(label="Price Compared to Average", value=f"{number} USD", 
                 delta=f"{price_change} USD", delta_color='inverse')
     col2.metric(label="Percentage Change from Average", value=f"{price_perc_change}%")
-    col3.metric(label="Price to Performance Compared to Average", 
+    col3.metric(label="Updated Price to Performance", 
                 value=f"{new_pp}", delta=f"{pp_diff}",
                 delta_color='normal')
 
