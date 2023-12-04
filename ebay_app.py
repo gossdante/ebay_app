@@ -446,12 +446,20 @@ parts = all_marks['Part Name'].drop_duplicates()
 chosen_part = st.selectbox('Select a part of interest',parts)
 number = st.number_input("Insert a number", value=None, placeholder="Type a number...")
 temp_df = all_marks[all_marks['Part Name']==(chosen_part)]
+#temp_df.index=['Part']
 temp_df['User Price Input'] = number
+#temp_df.iloc[0,4] = number
 temp_df['New Price to Performance Ratio'] = temp_df['Benchmark Score']/temp_df['User Price Input']
+#temp_df.iloc[0,5] = temp_df['Benchmark Score']/temp_df['User Price Input']
+
 st.dataframe(temp_df)
-og_pp = temp_df['Price to Performance Ratio']
-new_pp = temp_df['New Price to Performance Ratio']
-diff_pp = og_pp - new_pp
+#og_pp = temp_df['Price to Performance Ratio']
+#new_pp = temp_df['New Price to Performance Ratio']
+#diff_pp = og_pp - new_pp
+#new = (new_pp[0],' Ratio based on Input')
+#st.write(new)
+#diff = (diff_pp,' Change from average')
+#st.write(diff)
 
 #st.metric(label=chosen_part, 
 #          value=str(new_pp), 
