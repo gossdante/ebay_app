@@ -25,7 +25,8 @@ CPUs= ['AMD Ryzen 5 3600', 'AMD Ryzen 5 5500', 'AMD Ryzen 5 5600', 'AMD Ryzen 5 
        'AMD Ryzen 9 7900',' Intel Core i9-13900K',' Intel Core i7-13700',' Intel Core i5-13600','Intel Core i7-13700F',
        'Intel Core i5-13400','Intel Core i7-9700K', 'Intel Core i7-9800X', 'Intel Core i7-14700KF',
        'Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600K','Intel Core i5-12400',
-       'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700','Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K'
+       'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
+       'Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K',
        'Intel Core i9-11900K',' Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F','Intel Core i5-11600K','Intel Core i5-11500',
        'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K']
 Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard', 'a520 motherboard','h470 motherboard',
@@ -349,13 +350,14 @@ mboard_desc = mboard.groupby(['search_term'],as_index=False)['price'].describe()
     
 #    st.write('Motherboard Done')
 
-dis = st.selectbox('Display Detailed Data', ['cpu','gpu','mboard'],index=None)
+dis = st.selectbox('Display Detailed Data', ['CPU','GPU','Motherboard'],index=None)
 
-if dis == 'cpu':
+if dis == 'CPU':
     st.dataframe(cpu_desc)
-elif dis == 'gpu':
+elif dis == 'GPU':
     st.dataframe(gpu_desc)
-elif dis == 'mboard':
+elif dis == 'Motherboard':
+    mboard_desc['search_term'] = mboard_desc['search_term'].str.title()
     st.dataframe(mboard_desc)
 #if st.checkbox('Get CPU Benchmarks'):
 cpu_mark = cpu_marks()
@@ -433,7 +435,7 @@ st.dataframe(mboard2)
 #    d = d.sort_values(by='Ratio')
 #    st.dataframe(d)
 st.write('---')
-st.write('Select any CPU or GPU from the tool below, a table will be created allowing you to fill in prices to get an updated Price to Performance Ratio.')
+st.write('Select any CPU or GPU from the tool below, a table will be created allowing you to fill in a new price to get an updated Price to Performance Ratio.')
 # Now I want to make a fill in the blank calculator for price to performance
 # Combine cpu_marks & gpu_marks
 gpu_pp2 = gpu_pp.rename(columns={'GPU Name' : 'Part Name',
@@ -444,15 +446,35 @@ marks = [cpu_pp2, gpu_pp2]
 all_marks = pd.concat(marks)
 parts = all_marks['Part Name'].drop_duplicates()
 chosen_part = st.selectbox('Select a part of interest',parts)
-number = st.number_input("Insert a number", value=None, placeholder="Type a number...")
-temp_df = all_marks[all_marks['Part Name']==(chosen_part)]
-#temp_df.index=['Part']
-temp_df['User Price Input'] = number
-#temp_df.iloc[0,4] = number
-temp_df['New Price to Performance Ratio'] = temp_df['Benchmark Score']/temp_df['User Price Input']
-#temp_df.iloc[0,5] = temp_df['Benchmark Score']/temp_df['User Price Input']
+number = st.number_input("Insert the new price", value=None, placeholder="Type a number...")
+if number:
+    temp_df = pd.DataFrame(columns=['Part Name','Benchmark Score',
+                                    'Average Price (USD)','Price to Performance Ratio',
+                                    'User Price Input','New Price to Performance Ratio'])
+    temp_df = pd.concat([temp_df,all_marks[all_marks['Part Name']==(chosen_part)]],ignore_index=True)
+    #temp_df = all_marks[all_marks['Part Name']==(chosen_part)]
+    #temp_df.index=['Part']
+    #temp_df['User Price Input'] = number
+    temp_df.iloc[0,4] = number
+    #temp_df['New Price to Performance Ratio'] = temp_df['Benchmark Score']/temp_df['User Price Input']
+    #temp_df.iloc[0,5] = temp_df['Benchmark Score']/temp_df['User Price Input']
+    #temp_df.iloc[0,5] = temp_df.iloc[0,1]/temp_df.iloc[0,4]
+    temp_df.iloc[0,5] = float(temp_df.iloc[0,1])/number
 
-st.dataframe(temp_df)
+    st.dataframe(temp_df)
+    price_change = round(number - float(temp_df.iloc[0,2]),2)
+    price_perc_change = round(100*(price_change/number),2)
+    new_pp = round(float(temp_df.iloc[0,5]),2)
+    old_pp = round(float(temp_df.iloc[0,3]),2)
+    pp_diff = round(new_pp - old_pp,2)
+    col1, col2, col3 = st.columns(3)
+    col1.metric(label="Price Compared to Average", value=f"{number} USD", 
+                delta=f"{price_change} USD", delta_color='inverse')
+    col2.metric(label="Percentage Change from Average", value=f"{price_perc_change}%")
+    col3.metric(label="Price to Performance Compared to Average", 
+                value=f"{new_pp}", delta=f"{pp_diff}",
+                delta_color='normal')
+
 #og_pp = temp_df['Price to Performance Ratio']
 #new_pp = temp_df['New Price to Performance Ratio']
 #diff_pp = og_pp - new_pp
