@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import ssl
 import urllib.request, urllib.parse
 
+
 # GPUs, CPUs, and Motherboards I want to search
 GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'RX 6950 XT', 'RX 7900 XT', 'RTX 3080 Ti', 'RTX 3090', 'RTX 3080',
@@ -16,7 +17,7 @@ GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'RX 5600 XT', 'GTX 1070', 'GTX 1660 Super', 'GTX 1660', 'GTX 3050',
       'GTX 1650 Super','GTX 1060','RX 6500 XT', 'GTX 760 Ti', 'GTX 750 Ti',
       'GTX 1050']
-CPUs= ['AMD Ryzen 5 3600', 'AMD Ryzen 5 5500', 'AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G',
+CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G',
        'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G', 'AMD Ryzen 7 3700X',
        'AMD Ryzen 7 2700X', 'AMD Ryzen 5 3600X', 'AMD Ryzen 7 4700', 'AMD Ryzen 7 5700','AMD Ryzen 7 5800X3D',
        'AMD Ryzen 5 5600X', 'AMD Ryzen 7 5800', 'AMD Ryzen 5 7600X', 'AMD Ryzen 5 7600','AMD Ryzen 7 5700X',
@@ -474,6 +475,29 @@ if number:
     col3.metric(label="Updated Price to Performance", 
                 value=f"{new_pp}", delta=f"{pp_diff}",
                 delta_color='normal')
+
+# How about getting historic data for price to performance.
+# I'll use the resample method to 
+all_parts_lists = [cpu,gpu,mboard]
+all_parts = pd.concat(all_parts_lists)
+# set date as index
+all_parts['date_sold'] = pd.to_datetime(all_parts['date_sold'])
+all_parts = all_parts.set_index(['date_sold'])
+
+st.write('---')
+st.write('See recent price changes')
+#st.dataframe(all_parts)
+chosen_part_2 = st.selectbox('Select a part of interest',all_parts['search_term'].unique())
+if chosen_part_2:
+    small_df = all_parts[all_parts['search_term']==chosen_part_2]
+    #small_df = small_df.set_index('date_sold')
+    small_df_resampled = small_df['price'].resample('W').mean().ffill()
+    #st.dataframe(small_df)
+    #st.dataframe(small_df_resampled)
+    st.bar_chart(small_df_resampled)
+
+
+
 
 #og_pp = temp_df['Price to Performance Ratio']
 #new_pp = temp_df['New Price to Performance Ratio']
