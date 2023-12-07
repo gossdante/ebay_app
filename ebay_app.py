@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import ssl
 import urllib.request, urllib.parse
 import matplotlib.pyplot as plt
+from datetime import datetime
+from datetime import timedelta
 
 # GPUs, CPUs, and Motherboards I want to search
 GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
@@ -482,6 +484,8 @@ all_parts_lists = [cpu,gpu,mboard]
 all_parts = pd.concat(all_parts_lists)
 # set date as index
 all_parts['date_sold'] = pd.to_datetime(all_parts['date_sold'])
+past_date = datetime.now()-timedelta(days=30)
+all_parts = all_parts[all_parts['date_sold']>=past_date]
 all_parts = all_parts.set_index(['date_sold'])
 
 st.write('---')
