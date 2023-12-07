@@ -4,7 +4,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import ssl
 import urllib.request, urllib.parse
-
+import matplotlib.pyplot as plt
 
 # GPUs, CPUs, and Motherboards I want to search
 GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
@@ -496,6 +496,13 @@ if chosen_part_2:
     #st.dataframe(small_df_resampled)
     st.bar_chart(small_df_resampled)
 
+
+
+    fig, ax = plt.subplots()
+    ax.plot(small_df_resampled)
+    plt.title('Recent Prices')
+    plt.ylabel('Price (USD)')
+    st.pyplot(fig)
 
 
 
