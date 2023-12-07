@@ -496,9 +496,8 @@ if chosen_part_2:
     #st.dataframe(small_df_resampled)
     #st.bar_chart(small_df_resampled)
     fig, ax = plt.subplots()
-    ax.scatter(x=small_df.index,y=small_df['price'])
-    
-    ax.plot(small_df_resampled)
+    ax.scatter(x=small_df.index,y=small_df['price'],color='#FF8C00')
+    ax.plot(small_df_resampled, color = '#333333')
     plt.title('Average Price History')
     plt.ylabel('Price (USD)')
     plt.xticks(rotation=45)
