@@ -500,8 +500,9 @@ if chosen_part_2:
 
     fig, ax = plt.subplots()
     ax.plot(small_df_resampled)
-    plt.title('Recent Prices')
+    plt.title('Price History')
     plt.ylabel('Price (USD)')
+    plt.xticks(rotation=45)
     st.pyplot(fig)
 
 
