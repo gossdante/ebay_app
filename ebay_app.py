@@ -16,7 +16,7 @@ GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
       'GTX 1080', 'RX 6600', 'RX 5700', 'GTX 1070 Ti', 'RTX 2060', 'GTX 980 Ti',
       'RX 5600 XT', 'GTX 1070', 'GTX 1660 Super', 'GTX 1660', 'GTX 3050',
       'GTX 1650 Super','GTX 1060','RX 6500 XT', 'GTX 760 Ti', 'GTX 750 Ti',
-      'GTX 1050']
+      'GTX 1050', 'GTX 1050 Ti','GTX 1650' ]
 CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G',
        'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G', 'AMD Ryzen 7 3700X',
        'AMD Ryzen 7 2700X', 'AMD Ryzen 5 3600X', 'AMD Ryzen 7 4700', 'AMD Ryzen 7 5700','AMD Ryzen 7 5800X3D',
@@ -494,13 +494,12 @@ if chosen_part_2:
     small_df_resampled = small_df['price'].resample('W').mean().ffill()
     #st.dataframe(small_df)
     #st.dataframe(small_df_resampled)
-    st.bar_chart(small_df_resampled)
-
-
-
+    #st.bar_chart(small_df_resampled)
     fig, ax = plt.subplots()
+    ax.scatter(x=small_df.index,y=small_df['price'])
+    
     ax.plot(small_df_resampled)
-    plt.title('Price History')
+    plt.title('Average Price History')
     plt.ylabel('Price (USD)')
     plt.xticks(rotation=45)
     st.pyplot(fig)
