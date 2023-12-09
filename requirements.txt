@@ -6,3 +6,4 @@ sqlalchemy
 urllib3
 beautifulsoup4
 matplotlib
+datetime

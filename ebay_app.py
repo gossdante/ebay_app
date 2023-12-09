@@ -9,18 +9,20 @@ from datetime import datetime
 from datetime import timedelta
 
 # GPUs, CPUs, and Motherboards I want to search
-GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti',
-      'RX 6950 XT', 'RX 7900 XT', 'RTX 3080 Ti', 'RTX 3090', 'RTX 3080',
-      'RX 6900', 'RX 6800', 'RTX 3070', 'RTX 3070 Ti', 'RTX 2080 Ti',
-      'RX 6800 XT', 'RX 6750 XT', 'RTX 3060 Ti', 'RX 6700 XT', 'RTX 2080 Super',
-      'RTX 2080', 'GTX 1080 Ti', 'RTX 2070 Super', 'RX 6650 XT', 'RTX 3060',
-      'RX 5700 XT', 'RTX 2060 Super', 'RX 6600 XT', 'RTX 2070', 'RTX 2060',
-      'GTX 1080', 'RX 6600', 'RX 5700', 'GTX 1070 Ti', 'RTX 2060', 'GTX 980 Ti',
-      'RX 5600 XT', 'GTX 1070', 'GTX 1660 Super', 'GTX 1660', 'GTX 3050',
-      'GTX 1650 Super','GTX 1060','RX 6500 XT', 'GTX 760 Ti', 'GTX 750 Ti',
-      'GTX 1050', 'GTX 1050 Ti','GTX 1650' ]
-CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G',
-       'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G', 'AMD Ryzen 7 3700X',
+GPUs=['RTX 4090', 'RTX 4080', 'RX 7900 XTX', 'RTX 4070 Ti', 'RTX 3090 Ti','RTX 4070','RTX 4060',
+      'RX 6950 XT', 'RX 7900 XT', 'RTX 3080 Ti', 'RTX 3090', 'RTX 3080','ARC A750','ARC A580',
+      'RX 6900', 'RX 6800', 'RTX 3070', 'RTX 3070 Ti', 'RTX 2080 Ti','RX 6900 XT','RX 570',
+      'RX 6800 XT', 'RX 6750 XT', 'RTX 3060 Ti', 'RX 6700 XT', 'RTX 2080 Super','GTX 980',
+      'RTX 2080', 'GTX 1080 Ti', 'RTX 2070 Super', 'RX 6650 XT', 'RTX 3060','RX 7800 XT',
+      'RX 5700 XT', 'RTX 2060 Super', 'RX 6600 XT', 'RTX 2070', 'RTX 2060','RX 7700 XT',
+      'GTX 1080', 'RX 6600', 'RX 5700', 'GTX 1070 Ti', 'RTX 2060', 'GTX 980 Ti','RX 590'
+      'RX 5600 XT', 'GTX 1070', 'GTX 1660 Super', 'GTX 1660', 'GTX 3050','GTX 1660 Ti',
+      'GTX 1650 Super','GTX 1060','RX 6500 XT', 'GTX 760 Ti', 'GTX 750 Ti', 'RX 5500 XT',
+      'GTX 1050', 'GTX 1050 Ti','GTX 1650','RX 580','GTX 980','RX 560','GTX 1630','GTX 1030','RX 550']
+CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4600G', 'AMD Ryzen 5 2600', 
+       'AMD Ryzen 5 2600X','AMD Ryzen 5 2400G', 'AMD Ryzen 3 2200G','AMD Ryzen 5 2500X','AMD Ryzen 5 3400G','AMD Ryzen 3 3300X',
+       'AMD Ryzen 7 3800X','AMD Ryzen 9 3900', 'AMD Ryzen 3 4300G','AMD Ryzen 7 2700','AMD Ryzen 3 3100',
+       'AMD Ryzen 5 4500','AMD Ryzen 5 5600X','AMD Ryzen 9 3900X','AMD Ryzen 7 4700G', 'AMD Ryzen 7 3700X', 
        'AMD Ryzen 7 2700X', 'AMD Ryzen 5 3600X', 'AMD Ryzen 7 4700', 'AMD Ryzen 7 5700','AMD Ryzen 7 5800X3D',
        'AMD Ryzen 5 5600X', 'AMD Ryzen 7 5800', 'AMD Ryzen 5 7600X', 'AMD Ryzen 5 7600','AMD Ryzen 7 5700X',
        'AMD Ryzen 9 5900', 'AMD Ryzen 9 3950X','AMD Ryzen 9 7950X','AMD Ryzen 9 7900X','AMD Ryzen 9 5900X',
@@ -30,12 +32,26 @@ CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4
        'Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600K','Intel Core i5-12400',
        'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
        'Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K',
-       'Intel Core i9-11900K',' Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F','Intel Core i5-11600K','Intel Core i5-11500',
-       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K']
-Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard', 'a520 motherboard','h470 motherboard',
+       'Intel Core i9-11900K','Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F',
+       'Intel Core i9-11900','Intel Core i5-11600K','Intel Core i5-11500','Intel Core i7-11700',
+       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K',
+       'Intel Core i9-9900K','Intel Core i9-9900','Intel Core i7-9700K','Intel Core i7-9700','Intel Core i5-9600K',
+       'Intel Core i5-9600','Intel Core i5-9500F','Intel Core i5-9500','Intel Core i5-9400','Intel Core i5-9400F',
+       'Intel Core i5-9400T','Intel Core i3-9350K','Intel Core i3-9320','Intel Core i3-9300','Intel Core i3-9100',
+       'Intel Core i3-9100F','Intel Core i3-9100E','Intel Core i3-10100','Intel Core i3-10300','Intel Core i3-10320',
+       'Intel Core i3-12100T','Intel Core i3-1200F','Intel Core i3-12100','Intel Core i3-12300','Intel Core i3-13100',
+       'Intel Core i7-8700K','Intel Core i7-8700','Intel Core i7-8086K','Intel Core i5-8600K','Intel Core i5-8500',
+       'Intel Core i5-8500','Intel Core i3-9350K','Intel Core i3-8100','Intel Core i5-7600K','Intel Core i5-7600'
+       'Intel Core i7-7700K','Intel Core i7-7700','Intel Core i5-7500','Intel Core i5-7400','Intel Core i3-7320',
+       'Intel Core i3-7300','Intel Core i3-7350K','Intel Core i3-7100','Pentium G4620','Pentium G4600',
+       'Pentium G4560','Celeron G3950','Celeron G3930']
+Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard', 
+               'a520 motherboard','h470 motherboard',
                'h510 motherboard','h570 motherboard','z490 motherboard','z590 motherboard',
-               'x570 motherboard','b650 motherboard','x670 motherboard','z790 motherboard', 'x470 motherboard','h410 motherboard',
-               'B760 motherboard','z390 motherboard','h610 motherboard','b660 motherboard','x370 motherboard','b350 motherboard']
+               'x570 motherboard','b650 motherboard','x670 motherboard','z790 motherboard', 
+               'x470 motherboard','h410 motherboard',
+               'B760 motherboard','z390 motherboard','h610 motherboard','b660 motherboard',
+               'x370 motherboard','b350 motherboard']
 
 @st.cache_data
 def cpu_scraper():
