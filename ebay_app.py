@@ -39,8 +39,8 @@ CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4
        'Intel Core i5-9600','Intel Core i5-9500F','Intel Core i5-9500','Intel Core i5-9400','Intel Core i5-9400F',
        'Intel Core i5-9400T','Intel Core i3-9350K','Intel Core i3-9320','Intel Core i3-9300','Intel Core i3-9100',
        'Intel Core i3-9100F','Intel Core i3-9100E','Intel Core i3-10100','Intel Core i3-10300','Intel Core i3-10320',
-       'Intel Core i3-12100T','Intel Core i3-1200F','Intel Core i3-12100','Intel Core i3-12300','Intel Core i3-13100',
-       'Intel Core i7-8700K','Intel Core i7-8700','Intel Core i7-8086K','Intel Core i5-8600K','Intel Core i5-8500',
+       'Intel Core i3-12100T','Intel Core i3-12100F','Intel Core i3-1200F','Intel Core i3-12100','Intel Core i3-12300','Intel Core i3-13100',
+       'Intel Core i7-8700K','Intel Core i7-8700','Intel Core i7-8086K','Intel Core i5-8600','Intel Core i5-8600K','Intel Core i5-8500',
        'Intel Core i5-8500','Intel Core i3-9350K','Intel Core i3-8100','Intel Core i5-7600K','Intel Core i5-7600'
        'Intel Core i7-7700K','Intel Core i7-7700','Intel Core i5-7500','Intel Core i5-7400','Intel Core i3-7320',
        'Intel Core i3-7300','Intel Core i3-7350K','Intel Core i3-7100','Pentium G4620 @ 3.70GHz','Pentium G4600 @ 3.60GHz',
