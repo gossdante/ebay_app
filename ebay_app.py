@@ -34,7 +34,7 @@ CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4
        'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
        'Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K',
        'Intel Core i9-11900K','Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F',
-       'Intel Core i9-11900','Intel Core i5-11600K',,'Intel Core i5-11600H','Intel Core i5-11600T',
+       'Intel Core i9-11900','Intel Core i5-11600K','Intel Core i5-11600H','Intel Core i5-11600T',
        'Intel Core i5-11600KF','Intel Core i5-11500','Intel Core i7-11700',
        'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K',
        'Intel Core i9-9900K','Intel Core i9-9900','Intel Core i7-9700K','Intel Core i7-9700','Intel Core i5-9600K',
