@@ -442,9 +442,9 @@ st.write("CPUs")
 
 cpu_mark['cpu_name'] = cpu_mark['cpu_name'].apply(lambda row: row.split(' @')[0])
 
-st.write(cpu_mark)
-st.write(cpu2)
-st.write('---')
+#st.write(cpu_mark)
+#st.write(cpu2)
+
 cpu_pp = pd.merge(cpu_mark,cpu2,left_on=['cpu_name'],right_on='search_term')
 cpu_pp['Ratio'] = cpu_pp['cpu_marks']/cpu_pp['price']
 cpu_pp['price'] = cpu_pp['price'].round(2)
