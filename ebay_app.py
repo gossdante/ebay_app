@@ -31,12 +31,12 @@ CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4
        'Intel Core i5-13400','Intel Core i7-9700K', 'Intel Core i7-9800X', 'Intel Core i7-14700KF',
        'Intel Core i9-12900K',' Intel Core i7-12700K','Intel Core i5-12600H','Intel Core i5-12600T','Intel Core i5-12600KF',
        'Intel Core i5-12600','Intel Core i5-12600K','Intel Core i5-12400',
-       'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700',
+       'Intel Core i5-12500','Intel Core i7-13700K','Intel Core i7-10700','Intel Core i7-9700','Intel Core i7-10700K',
        'Intel Core i5-10400','Intel Core i5-10500','Intel Core i5-10600','Intel Core i5-10600K',
        'Intel Core i9-11900K','Intel Core i7-11700K','Intel Core i5-11600','Intel Core i5-11400F',
        'Intel Core i9-11900','Intel Core i5-11600K','Intel Core i5-11600H','Intel Core i5-11600T',
-       'Intel Core i5-11600KF','Intel Core i5-11500','Intel Core i7-11700',
-       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K',
+       'Intel Core i5-11600KF','Intel Core i5-11500','Intel Core i7-11700','Intel Core i9-10850K',
+       'Intel Core i7-7800X','Intel Core i7-6850K',' Intel Core i5-11400','Intel Core i5-14600K','Intel Core i9-10900K',
        'Intel Core i9-9900K','Intel Core i9-9900','Intel Core i7-9700K','Intel Core i7-9700','Intel Core i5-9600K',
        'Intel Core i5-9600','Intel Core i5-9500F','Intel Core i5-9500','Intel Core i5-9400','Intel Core i5-9400F',
        'Intel Core i5-9400T','Intel Core i3-9350K','Intel Core i3-9320','Intel Core i3-9300','Intel Core i3-9100',
@@ -46,7 +46,7 @@ CPUs= ['AMD Ryzen 5 5500', 'AMD Ryzen 5 3600','AMD Ryzen 5 5600', 'AMD Ryzen 5 4
        'Intel Core i7-8700K','Intel Core i7-8700','Intel Core i7-8086K','Intel Core i5-8600','Intel Core i5-8600K','Intel Core i5-8500',
        'Intel Core i5-8500','Intel Core i3-9350K','Intel Core i3-8100','Intel Core i5-7600K','Intel Core i5-7600'
        'Intel Core i7-7700K','Intel Core i7-7700','Intel Core i5-7500','Intel Core i5-7400','Intel Core i3-7320',
-       'Intel Core i3-7300','Intel Core i3-7350K','Intel Core i3-7100','Pentium G4620 @ 3.70GHz','Pentium G4600 @ 3.60GHz',
+       'Intel Core i3-7300','Intel Core i3-7350K','Intel Core i3-7100','Pentium G4620','Pentium G4600',
        'Pentium G4560','Celeron G3950','Celeron G3930']
 Motherboards= ['b450 motherboard', 'b550 motherboard', 'b460 motherboard', 'b560 motherboard', 
                'a520 motherboard','h470 motherboard',
@@ -129,6 +129,11 @@ def cpu_scraper():
     df = df[df["item_name"].str.contains("DAMAGE") == False] 
     df = df[df["item_name"].str.contains("Laptop") == False] 
     df = df[df["item_name"].str.contains("LAPTOP") == False]
+    df = df[df["item_name"].str.contains("omen") == False]
+    df = df[df["item_name"].str.contains("Omen") == False]
+    df = df[df["item_name"].str.contains("PC") == False]
+    df = df[df["item_name"].str.contains("pc") == False]
+    df = df[df["item_name"].str.contains("Pc") == False]
     df['price'] = df['price'].apply(pd.to_numeric)
     return df
     
