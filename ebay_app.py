@@ -355,6 +355,7 @@ def gpu_marks():
     df['gpu_marks'] = [marks.replace(',','') for marks in df['gpu_marks']]
     df = df.drop(df[df['gpu_marks'] == 'NA'].index)
     df['gpu_marks'] = df['gpu_marks'].apply(pd.to_numeric)
+    df = df.drop(df[df['gpu_marks'] >= 2000].index)
     return df
 
 
