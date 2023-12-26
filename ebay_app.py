@@ -307,33 +307,56 @@ def cpu_marks():
   df['cpu_marks'] = df['cpu_marks'].apply(pd.to_numeric)
   return df
 
+
+#def gpu_marks():
+#    gpu_list = 'https://www.videocardbenchmark.net/high_end_gpus.html'
+#    df = pd.DataFrame(columns=['gpu_name','scale','gpu_marks','price','blank'],index=range(10000))
+#    html=urllib.request.urlopen(gpu_list).read()
+#    soup=BeautifulSoup(html,'html.parser')
+#    i = 0
+#    j = 0 
+#    for line in (soup.find('span',class_='more_details').find_all_next('span')):
+#        if line.get_text() == 'Radeon Ryzen 5 5600GE':
+#            break
+#        else:
+#            #print(line.get_text(),i)
+#            df.iloc[j,i] = line.get_text()
+#            i = i + 1
+#            if i == 5:
+#                i = 0
+#                j = j+1
+#
+#    df = df.drop(columns=['scale','price','blank'],axis='columns')
+#    df = df.dropna(how='all',axis= 'rows')
+#    #df['gpu_marks'] = df['gpu_marks'].apply(str.replace(',',''))
+#    #marks = [mark.replace(',','') for mark in marks]
+#    df['gpu_marks'] = [marks.replace(',','') for marks in df['gpu_marks']]
+#    
+#    df['gpu_marks'] = df['gpu_marks'].apply(pd.to_numeric)
+#    return df
+
 @st.cache_data
 def gpu_marks():
     gpu_list = 'https://www.videocardbenchmark.net/high_end_gpus.html'
-    df = pd.DataFrame(columns=['gpu_name','scale','gpu_marks','price','blank'],index=range(10000))
     html=urllib.request.urlopen(gpu_list).read()
     soup=BeautifulSoup(html,'html.parser')
-    i = 0
-    j = 0 
-    for line in (soup.find('span',class_='more_details').find_all_next('span')):
-        if line.get_text() == 'Radeon Ryzen 5 5600GE':
-            break
-        else:
-            #print(line.get_text(),i)
-            df.iloc[j,i] = line.get_text()
-            i = i + 1
-            if i == 5:
-                i = 0
-                j = j+1
-
-    df = df.drop(columns=['scale','price','blank'],axis='columns')
-    df = df.dropna(how='all',axis= 'rows')
-    #df['gpu_marks'] = df['gpu_marks'].apply(str.replace(',',''))
-    #marks = [mark.replace(',','') for mark in marks]
+    df = pd.DataFrame(columns=['gpu_name','gpu_marks'],index=range(10000))
+    i=0
+    for item in soup.find('span',class_='more_details').find_all_next('span', class_='prdname'):
+        #print(item.get_text())
+        df.iloc[i,0]=item.get_text()
+        i=i+1
+    j=0
+    for item in soup.find('span',class_='more_details').find_all_next('span', class_='count'):
+        #print(item.get_text())
+        df.iloc[j,1]=item.get_text()
+        j=j+1
+    df = df.dropna(how='any',axis= 'rows')
     df['gpu_marks'] = [marks.replace(',','') for marks in df['gpu_marks']]
-    
+    df = df.drop(df[df['gpu_marks'] == 'NA'].index)
     df['gpu_marks'] = df['gpu_marks'].apply(pd.to_numeric)
     return df
+
 
 st.title('Ebay Price Performance')
 st.write("This application will access ebay data for a list of CPUs, GPUs, and Motherboards.")# Note that the first time this web application is loaded, it may take several minutes to search for all the data, though this will be retained on subsequent loads. ")
