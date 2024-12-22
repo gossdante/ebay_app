@@ -411,12 +411,14 @@ elif dis == 'Motherboard':
     mboard_desc['search_term'] = mboard_desc['search_term'].str.title()
     st.dataframe(mboard_desc)
 #if st.checkbox('Get CPU Benchmarks'):
-cpu_mark = cpu_marks()
+# cpu_mark = cpu_marks()
+cpu_mark = pd.read_csv('cpu_marks.csv')
 #    st.dataframe(cpu_marks)
 #    st.write('Done')
     
 #if st.checkbox('Get GPU Benchmarks'):
-gpu_mark = gpu_marks()
+# gpu_mark = gpu_marks()
+gpu_mark = pd.read_csv('gpu_marks.csv')
 #    st.dataframe(gpu_marks)
 #    st.write('Done')
     
