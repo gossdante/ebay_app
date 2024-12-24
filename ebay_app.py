@@ -426,7 +426,7 @@ gpu_mark = pd.read_csv('gpu_marks.csv')
 #    bar1 = st.progress(0)
 #    cpu = cpu_scraper()
 #    cpu['price'] = cpu['price'].apply(pd.to_numeric)
-cpu2 = cpu.groupby(['search_term'])['price'].mean()
+cpu2 = cpu.groupby(['search_term'])['price'].median()
 
 #    st.dataframe(cpu2)
 
@@ -458,7 +458,7 @@ cpu_pp['price'] = cpu_pp['price'].round(2)
 cpu_pp['Ratio'] = cpu_pp['Ratio'].round(2)
 cpu_pp = cpu_pp.rename(columns={'cpu_name' : 'CPU Name',
                        'cpu_marks' : 'CPU Benchmark Score',
-                       'price' : 'Average Price (USD)',
+                       'price' : 'Median Price (USD)',
                        'Ratio' : 'Price to Performance Ratio'})
 st.dataframe(cpu_pp)
 
@@ -467,14 +467,14 @@ st.write("GPUs")
 #st.dataframe(gpu2)
 gpu_mark['join'] = gpu_mark['gpu_name'].str.split().str[1:].apply(' '.join)
 #st.dataframe(gpu_mark)
-gpu_pp = pd.merge(gpu_mark,gpu2,left_on=['join'],right_on=['search_term'])
+gpu_pp = pd.merge(gpu_mark,gpu3,left_on=['join'],right_on=['search_term'])
 gpu_pp['Ratio'] = gpu_pp['gpu_marks']/gpu_pp['price']
 gpu_pp['Ratio'] = gpu_pp['Ratio'].round(2)
 gpu_pp['price'] = gpu_pp['price'].round(2)
 
 gpu_pp = gpu_pp.rename(columns={'gpu_name' : 'GPU Name',
                                 'gpu_marks' : 'GPU Benchmark Score',
-                                'price' : 'Average Price (USD)',
+                                'price' : 'Median Price (USD)',
                                 'Ratio' : 'Price to Performance Ratio'})
 gpu_pp = gpu_pp.drop(columns=['join'])
 st.dataframe(gpu_pp)
